@@ -1,0 +1,5 @@
+.venv/
+.env
+confessions.db
+static/posts/
+__pycache__/

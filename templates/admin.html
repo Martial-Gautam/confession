@@ -1,0 +1,20 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confession queue</title>
+<style>
+  body{font-family:system-ui,sans-serif;max-width:700px;margin:0 auto;padding:24px}
+  article{border:1px solid #ccc;border-radius:8px;padding:12px;margin-bottom:12px;white-space:pre-wrap}
+  form{display:inline}
+  .msg{background:#ffe;padding:8px;border:1px solid #cc9}
+</style>
+<h1>Pending ({{ rows|length }})</h1>
+{% for m in get_flashed_messages() %}<p class="msg">{{ m }}</p>{% endfor %}
+{% for r in rows %}
+<article>
+  <small>#{{ r.id }} · {{ r.created_at }}</small>
+  <p>{{ r.text }}</p>
+  <form method="post" action="/admin/{{ r.id }}/approve"><button>Approve &amp; post</button></form>
+  <form method="post" action="/admin/{{ r.id }}/reject"><button>Reject</button></form>
+</article>
+{% else %}<p>Queue empty.</p>{% endfor %}

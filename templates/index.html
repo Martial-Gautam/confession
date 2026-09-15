@@ -1,0 +1,22 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confess</title>
+<style>
+  body{font-family:system-ui,sans-serif;background:#111;color:#eee;max-width:600px;margin:0 auto;padding:24px}
+  textarea{width:100%;min-height:200px;padding:12px;font-size:16px;border-radius:8px;border:1px solid #444;background:#1a1a1a;color:#eee;box-sizing:border-box}
+  button{margin-top:12px;padding:12px 24px;font-size:16px;border:0;border-radius:8px;background:#e1306c;color:#fff;cursor:pointer}
+  .err{color:#ff6b6b}
+</style>
+<h1>Anonymous Confession</h1>
+{% if done %}
+  <p>Thanks — your confession is in the queue. No name, no account, nothing stored about you.</p>
+  <a href="/" style="color:#e1306c">Send another</a>
+{% else %}
+  {% if error %}<p class="err">{{ error }}</p>{% endif %}
+  <form method="post" action="/submit">
+    <textarea name="text" maxlength="{{ max_len }}" required placeholder="Type your confession…"></textarea>
+    <button type="submit">Submit anonymously</button>
+  </form>
+  <p style="color:#888">Reviewed before posting. Up to {{ max_len }} characters.</p>
+{% endif %}
